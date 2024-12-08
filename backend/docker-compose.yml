@@ -1,4 +1,4 @@
-#version: '3.8'
+version: '3.8'
 services:
   # Banco de Dados PostgreSQL
   db:
@@ -14,14 +14,14 @@ services:
 
   # Backend Node.js
   app:
-    image: node:18.18
+    image: node:20
     working_dir: /usr/src/app
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - "3001:3001"
-    command: sh -c "npm install && npm run dev"
+    command: sh -c "npm install && npx prisma generate && npx prisma migrate dev && npm run dev"
     environment:
       DATABASE_URL: postgresql://mlgonzaga:123456@db:5432/biofy_crud?schema=public
     depends_on:
@@ -29,16 +29,19 @@ services:
 
   # Frontend Vite
   frontend:
-    image: node:18.18
+    image: node:20
     working_dir: /usr/src/app
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - "5173:5173"
-    command: sh -c "npm install && npm run dev"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
     environment:
       NODE_ENV: development
+      VITE_API_URL: http://app:3001
+    depends_on:
+      - app
 
 volumes:
   postgres_data:
