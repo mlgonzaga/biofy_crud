@@ -40,7 +40,7 @@ Este processo pode demorar um pouco então será necessário aguardar o processo
 Ao terminar o processo acesse pelo seu navegador http://localhost:5173 e irá se deparar com essa tela:
 </br>
 
-<img src="inicial.png" alt="Tela inicial">
+<img src="image.png" alt="Tela inicial">
 
 
 # Exemplos de chamadas da API
