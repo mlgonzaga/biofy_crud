@@ -47,6 +47,6 @@ Ao terminar o processo acesse pelo seu navegador http://localhost:5173 e irá se
 
 Você pode verificar exemplos de chamadas acessando o link:
 </br>
-https://web.postman.co/workspace/09ce6d64-1566-44aa-963b-edaba6993ea2/documentation/24184302-70eb896a-a0e9-4a61-aac0-3ef95cbd43a9
+https://documenter.getpostman.com/view/24184302/2sAYBd6nFm
 
 
