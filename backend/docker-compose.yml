@@ -1,0 +1,44 @@
+#version: '3.8'
+services:
+  # Banco de Dados PostgreSQL
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: mlgonzaga
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: biofy_crud
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Backend Node.js
+  app:
+    image: node:18.18
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3001:3001"
+    command: sh -c "npm install && npm run dev"
+    environment:
+      DATABASE_URL: postgresql://mlgonzaga:123456@db:5432/biofy_crud?schema=public
+    depends_on:
+      - db
+
+  # Frontend Vite
+  frontend:
+    image: node:18.18
+    working_dir: /usr/src/app
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev"
+    environment:
+      NODE_ENV: development
+
+volumes:
+  postgres_data:
